@@ -2,10 +2,7 @@ from grille import Grille
 
 class Direction:
     DROITE = 0
-    GAUCHE = 1
-
-    def changer_dir(self):
-        pass
+    GAUCHE = 1        
 
 
 class Etats:
@@ -20,13 +17,16 @@ class Etats:
 
 
 class Lemming:
-    def __init__(self):
-        position_x = int()
-        position_y = int()
-        etat = 'Etats.--'
-        direction = 'Direction.--'
-        arrive = bool()
-        selectionne = bool()
+    def __init__(self, x, y):
+        position_x = x
+        position_y = y
+        etat = Etats.MARCHER_1
+        direction = Direction.DROITE
+        arrive = False
+        selectionne = False
+
+    def changer_dir(self):
+        self.direction = (self.direction + 1) % 2
 
     def deplacement(self):
         pass

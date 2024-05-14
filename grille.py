@@ -11,12 +11,12 @@ class Type_t:
 
 
 class Terrain:
-    def __init__(self):
-        position = tuple()
-        terrain = 'Type_t.--'
+    def __init__(self, x, y, type):
+        position = (x, y)
+        terrain = type
 
     def est_libre(self):
-        pass
+        return not 1 <= self.terrain < 6
 
 
 class Grille:
@@ -24,10 +24,13 @@ class Grille:
         map = list(list())
     
     def case(self, x, y):
-        pass
+        return self.map[x][y]
 
     def creuser(self, x, y):
-        pass
+        if self.case(x, y).terrain > 1:
+            self.case(x, y).terrain -= 1
+        else:
+            self.map[x][y] = Terrain(x, y, Type_t.AIR)
 
     def charger_grille(self):
         pass
