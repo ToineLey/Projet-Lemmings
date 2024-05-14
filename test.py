@@ -1,32 +1,40 @@
-import pyxel as p
+import pyxel as pyx
 
 H,L = 6*8,8*8
-t = [[None]*7 for _ in range(7)]
+t = [[None]*3 for _ in range(4)]
 
 class Test:
 
     def __init__(self):
-        p.init(H,L,title= 'Tst')
+        pyx.init(H,L,title= 'Tst')
         self.x = 0
-        p.load("my_resource.pyxres")
+        pyx.load("Test.pyxres")
+        self.get_tilemap(t)
+        print(t)
         # Lancement du jeu
-        p.run(self.update, self.draw)
+        pyx.run(self.update, self.draw)
         
             
     def update(self):
-       pass
+        a = 1
 
     def draw(self):
-       p.cls(0)
+       pyx.cls(0)
 
 
-    def get_tilemap(self,t = [[]]):
+
+    def get_tilemap(self,tab):
         # parcourir une tilemap et recupérer les tuples en les metants dans un tableau de tableau de meme taille. 
         # Taille fixé à , 7.7 pour les testes.
-        for i in range(8):
-            for j in range(8):
-                t[j][i] = p.tilemap(0).pget(j,i)
-v = 0
+        for i in range(4):
+            for j in range(3):
+                tab[i][j] = pyx.tilemap(0).pget(i*2,j*2)
+        
+    
+def affiche_tuples(tab,x,y):
+    return tab[x][y]
+
+
 
 
 
