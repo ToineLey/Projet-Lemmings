@@ -18,3 +18,11 @@ class App:
         pass
     def update():
         pass
+
+
+def affiche_map():
+    pass
+def affiche_interface():
+    pass
+def gameplay():
+    pass
