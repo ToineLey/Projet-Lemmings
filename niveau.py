@@ -9,10 +9,10 @@ class Niveau:
         nb_lem_arr = int()
         coo_dep = tuple()
         coo_arr = tuple()
-        nb_lem_IGM = int()
+        lem_IGM = set()
 
     def apparition(self):
-        pass
+        self.lem_IGM.add(Lemming(*self.coo_dep))
 
     def calcul_score(self):
         pass
