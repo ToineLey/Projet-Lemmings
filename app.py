@@ -1,4 +1,4 @@
-from Jeu import *
+from jeu import *
 import pyxel
 
 

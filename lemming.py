@@ -14,6 +14,7 @@ class Etats:
     CREUSER_2 = 5
     CHUTE = 6
     MORT = 7
+    VICTOIRE = 8
 
 
 class Lemming:
@@ -28,20 +29,33 @@ class Lemming:
     def changer_dir(self):
         self.direction = (self.direction + 1) % 2
 
-    def deplacement(self):
-        pass
+    def deplacement(self, grille):
+        if grille[self.y+1][self.x].est_libre():
+            self.etat = Etats.CHUTE
+            self.y -= 1
+        elif self.direction() == 0 and grille[self.y][self.x+1].est_libre():
+            self.etat = Etats.MARCHER_1 if self.etat == 6 or self.etat == 5 else self.etat + 1
+            self.x += 1
+        elif self.direction() == 1 and grille[self.y][self.x-1].est_libre():
+            self.etat = Etats.MARCHER_1 if self.etat == 6 or self.etat == 5 else self.etat + 1
+            self.x -= 1
+        else:
+            self.changer_dir()
 
     def arrivee(self):
-        pass
+        self.etat = Etats.VICTOIRE
 
-    def creuse(self):
-        pass
+    def creuse(self, grille):
+        grille.creuser(self.x,self.y-1)
+        self.etat = Etats.CREUSER_2 if self.etat == 1 else Etats.CREUSER_1
 
     def stop(self):
-        pass
+        self.etat = Etats.STOP
 
     def mort(self):
-        pass
+        self.etat = Etats.MORT
 
     def tour(self):
-        pass
+        # à compléter
+        if 1 <= self.etat <= 6:
+            self.deplacement()
