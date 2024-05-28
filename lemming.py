@@ -19,28 +19,68 @@ class Etats:
 
 class Lemming:
     def __init__(self, x, y):
-        position_x = x
-        position_y = y
-        etat = Etats.MARCHER_1
-        direction = Direction.DROITE
-        arrive = False
-        selectionne = False
+        self.case_x = x
+        self.case_y = y
+        self.dx = -1
+        self.dy = -1
+        self.etat = Etats.MARCHER_1
+        self.direction = Direction.DROITE
+        self.arrive = False
+        self.selectionne = False
 
     def changer_dir(self):
         self.direction = (self.direction + 1) % 2
 
-    def deplacement(self, grille):
-        if grille.case(self.x, self.y+1).est_libre():
-            self.etat = Etats.CHUTE
-            self.y -= 1
-        elif self.direction() == 0 and grille.case(self.x+1, self.y).est_libre():
-            self.etat = Etats.MARCHER_1 if self.etat == 6 or self.etat == 5 else self.etat + 1
-            self.x += 1
-        elif self.direction() == 1 and grille.case(self.x-1, self.y).est_libre():
-            self.etat = Etats.MARCHER_1 if self.etat == 6 or self.etat == 5 else self.etat + 1
-            self.x -= 1
+    def changer_etat_marche(self):
+        if self.etat == Etats.MARCHER_1 or self.etat == Etats.MARCHER_2:
+            self.etat += 1
         else:
-            self.changer_dir()
+            self.etat = Etats.MARCHER_1
+
+    def chute(self):
+        self.dy = self.dy + 1 if self.dy <= 7 else -8
+        if self.dy == -8:
+            self.case_y += 1
+
+    def marche(self, pas):
+        self.dx = self.dy + pas
+        if self.dx < -8:
+            self.case_x -= 1
+            self.dx = 8
+        elif self.dx > 8:
+            self.case_x += 1
+            self.dx = -8
+
+    def deplacement(self, grille):
+        if (self.dx == -1 or self.dx == 1) and grille.case(self.case_x, self.case_y+1).est_libre():
+            self.etat = Etats.CHUTE
+
+        if self.etat == Etats.CHUTE:
+            if self.dy != -1:
+                self.chute()
+            else:
+                if grille.case(self.case_x, self.case_y+1).est_libre():
+                    self.chute()
+                else:
+                    self.changer_etat_marche()
+
+        elif self.direction == Direction.DROITE:
+            if self.dx != -1:
+                self.marche(1)
+            else:
+                if grille.case(self.case_x+1, self.case_y).est_libre():
+                    self.marche(1)
+                else:
+                    self.changer_dir()
+
+        elif self.direction == Direction.GAUCHE:
+            if self.dx != 1:
+                self.marche(-1)
+            else:
+                if grille.case(self.case_x-1, self.case_y).est_libre():
+                    self.marche(-1)
+                else:
+                    self.changer_dir()
 
     def arrivee(self):
         self.etat = Etats.VICTOIRE
