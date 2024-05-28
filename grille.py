@@ -7,7 +7,7 @@ class Type_t:
     TERRE_5 = 5
     VIDE = 6
     DEPART = 7
-    ARRIVEE = 8
+    ARRIVEE = 8  
 
 
 class Terrain:

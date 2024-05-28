@@ -4,17 +4,17 @@ H,L = 6*8,8*8
 t = [[None]*3 for _ in range(4)]
 
 ### Dictionnaire du terrain, avec tous les terrains possibles dans la nivaux ###
-"""Dict_Terrain = {
-    () : 'AIR'
-    () : 'TERRE_1'
-    () : 'TERRE_2'
-    () : 'TERRE_3'
-    () : 'TERRE_4'
-    () : 'TERRE_5'
-    () : 'VIDE'
-    () : 'DEPART'
-    () : 'ARRIVEE'
-}"""
+Dict_Terrain = {
+    (2,4) : 'AIR',
+    (4,4) : 'TERRE_1',
+    (0,6) : 'TERRE_2',
+    (2,6) : 'TERRE_3',
+    (4,6) : 'TERRE_4',
+    (6,6) : 'TERRE_5',
+    (0,4) : 'VIDE',
+    (0,8) : 'DEPART',
+    (2,8) : 'ARRIVEE'
+}
 
 
 class Test:
