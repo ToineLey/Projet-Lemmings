@@ -3,7 +3,7 @@ from grille import Grille
 
 class Niveau:
     def __init__(self):
-        nb_niveau = int()
+        nb_niveau = int() # correspond u niveau de la tilmap
         grille = 'Grille()'
         nb_lem_dep = int()
         nb_lem_arr = int()
@@ -16,3 +16,14 @@ class Niveau:
 
     def calcul_score(self):
         pass
+
+    def tour_lemmings(self, lem):
+        # à compléter
+        if self.grille.case(lem.x, lem.y).terrain == Type_t.VIDE:
+            lem.etat = Etats.MORT
+        elif tuple(lem.x, lem.y) == self.coo_arr:
+            lem.etat = Etats.VICTOIRE
+        if Etats.MARCHER_1 <= lem.etat <= Etats.MARCHER_3 or lem.etat == Etats.CHUTE:
+            lem.deplacement(self.grille)
+        elif lem.etat == Etats.CREUSER_1 or lem.etat == Etats.CREUSER_2:
+            lem.creuse(self.grille)

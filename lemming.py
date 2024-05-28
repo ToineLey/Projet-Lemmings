@@ -1,4 +1,4 @@
-from grille import Grille
+from grille import Grille, Type_t
 
 class Direction:
     DROITE = 0
@@ -30,13 +30,13 @@ class Lemming:
         self.direction = (self.direction + 1) % 2
 
     def deplacement(self, grille):
-        if grille[self.y+1][self.x].est_libre():
+        if grille.case(self.x, self.y+1).est_libre():
             self.etat = Etats.CHUTE
             self.y -= 1
-        elif self.direction() == 0 and grille[self.y][self.x+1].est_libre():
+        elif self.direction() == 0 and grille.case(self.x+1, self.y).est_libre():
             self.etat = Etats.MARCHER_1 if self.etat == 6 or self.etat == 5 else self.etat + 1
             self.x += 1
-        elif self.direction() == 1 and grille[self.y][self.x-1].est_libre():
+        elif self.direction() == 1 and grille.case(self.x-1, self.y).est_libre():
             self.etat = Etats.MARCHER_1 if self.etat == 6 or self.etat == 5 else self.etat + 1
             self.x -= 1
         else:
@@ -46,16 +46,8 @@ class Lemming:
         self.etat = Etats.VICTOIRE
 
     def creuse(self, grille):
-        grille.creuser(self.x,self.y-1)
+        grille.creuser(self.x,self.y+1)
         self.etat = Etats.CREUSER_2 if self.etat == 1 else Etats.CREUSER_1
 
     def stop(self):
         self.etat = Etats.STOP
-
-    def mort(self):
-        self.etat = Etats.MORT
-
-    def tour(self):
-        # à compléter
-        if 1 <= self.etat <= 6:
-            self.deplacement()
