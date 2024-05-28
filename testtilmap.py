@@ -59,7 +59,7 @@ class Test:
 
     def get_tilemap(self,tab):
         # parcourir une tilemap et recupérer les tuples en les metants dans un tableau de tableau de meme taille. 
-        # Taille fixé à , 7.7 pour les testes.
+        # Taille fixé à , 4.3 pour les testes.
         for i in range(self.len_x):
             for j in range(self.len_y):
                     tab[i][j] = Dict_Test[pyx.tilemap(0).pget(i*2,j*2)]
