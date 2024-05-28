@@ -24,13 +24,13 @@ class Grille:
         map = list(list())
     
     def case(self, x, y):
-        return self.map[x][y]
+        return self.map[y][x]
 
     def creuser(self, x, y):
         if self.case(x, y).terrain > 1:
             self.case(x, y).terrain -= 1
         else:
-            self.map[x][y] = Terrain(x, y, Type_t.AIR)
+            self.map[y][x] = Terrain(x, y, Type_t.AIR)
 
 # à modifier par Argan
     def charger_grille(self):
