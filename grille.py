@@ -32,5 +32,6 @@ class Grille:
         else:
             self.map[y][x] = Terrain(x, y, Type_t.AIR)
 
+# à modifier par Argan
     def charger_grille(self):
         pass

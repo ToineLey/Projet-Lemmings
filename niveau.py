@@ -3,7 +3,7 @@ from grille import Grille
 
 class Niveau:
     def __init__(self):
-        nb_niveau = int()
+        nb_niveau = int() # correspond u niveau de la tilmap
         grille = 'Grille()'
         nb_lem_dep = int()
         nb_lem_arr = int()
