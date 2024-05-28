@@ -1,5 +1,5 @@
 from jeu import *
-import pyxel
+import pyxel as pyx
 
 
 class Interface:
@@ -11,7 +11,7 @@ class App:
     def __init__(self) -> None:
         boutons= 'Interface()'
         game = 'Jeu()'
-        pyxel.mouse(True)
+        pyx.mouse(True)
     def onclick():
         pass
     def draw():
