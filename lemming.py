@@ -37,9 +37,10 @@ class Lemming:
         else:
             self.etat = Etats.MARCHER_1
 
-    def chute(self):
-        self.dy = self.dy + 1 if self.dy <= 7 else -8
-        if self.dy == -8:
+    def chute(self, pas):
+        self.dy = self.dy + pas 
+        if self.dy > 8:
+            self.dy = -8
             self.case_y += 1
 
     def marche(self, pas):
@@ -57,10 +58,10 @@ class Lemming:
 
         if self.etat == Etats.CHUTE:
             if self.dy != -1:
-                self.chute()
+                self.chute(1)
             else:
                 if grille.case(self.case_x, self.case_y+1).est_libre():
-                    self.chute()
+                    self.chute(2)
                 else:
                     self.changer_etat_marche()
 
@@ -69,7 +70,7 @@ class Lemming:
                 self.marche(1)
             else:
                 if grille.case(self.case_x+1, self.case_y).est_libre():
-                    self.marche(1)
+                    self.marche(2)
                 else:
                     self.changer_dir()
 
@@ -78,7 +79,7 @@ class Lemming:
                 self.marche(-1)
             else:
                 if grille.case(self.case_x-1, self.case_y).est_libre():
-                    self.marche(-1)
+                    self.marche(-2)
                 else:
                     self.changer_dir()
 
