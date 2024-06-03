@@ -8,7 +8,6 @@ class App:
         self.y_interface = self.H-16
         pyx.init(self.L, self.H, title='Tst')
         self.x = 0
-        self.apu = 1
         self.bouton_1 = True
         self.bouton_2 = True
         self.bouton_3 = True
@@ -25,21 +24,24 @@ class App:
         self.wait()
 
     def draw(self):
-        pyx.cls(self.apu)
+        pyx.cls(0)
         self.bouton()
         pyx.mouse(True)
 
     def onclick(self):
         if pyx.btnp(pyx.MOUSE_BUTTON_LEFT, True, False):
-            if pyx.mouse_x >= self.b1 and pyx.mouse_x < self.b1+16 and pyx.mouse_y >= self.y_interface and pyx.mouse_y < self.H:
+            if ((pyx.mouse_x >= self.b1 and pyx.mouse_x < self.b1+16) and
+                 (pyx.mouse_y >= self.y_interface and pyx.mouse_y < self.H)):
                 if self.bouton_1:
                     self.bouton_1 = False
                     self.fc1 = pyx.frame_count
-            elif pyx.mouse_x >= self.b2 and pyx.mouse_x < self.b2+16 and pyx.mouse_y >= self.y_interface and pyx.mouse_y < self.H:
+            elif ((pyx.mouse_x >= self.b2 and pyx.mouse_x < self.b2+16) and
+                   (pyx.mouse_y >= self.y_interface and pyx.mouse_y < self.H)):
                 if self.bouton_2:
                     self.bouton_2 = False
                     self.fc2 = pyx.frame_count
-            elif pyx.mouse_x >= self.b3 and pyx.mouse_x < self.b3+16 and pyx.mouse_y >= self.y_interface and pyx.mouse_y < self.H:
+            elif ((pyx.mouse_x >= self.b3 and pyx.mouse_x < self.b3+16) and
+                   (pyx.mouse_y >= self.y_interface and pyx.mouse_y < self.H)):
                 if self.bouton_3:
                     self.bouton_3 = False
                     self.fc3 = pyx.frame_count
@@ -59,6 +61,7 @@ class App:
             pyx.blt(self.b2, self.y_interface, 0, 16, 80, 16, 16)
         if self.bouton_3:
             pyx.blt(self.b3, self.y_interface, 0, 32, 80, 16, 16)
+
 
 
 def affiche_map():

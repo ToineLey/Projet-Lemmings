@@ -1,5 +1,6 @@
 from jeu import *
 import pyxel as pyx
+
 class App:
     def __init__(self,h,l):
         self.H,self.L = (h+1)*8,l*8
