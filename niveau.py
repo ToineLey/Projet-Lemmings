@@ -29,4 +29,3 @@ class Niveau:
             lem.creuse(self.grille)
         elif lem.etat == Etats.STOP:
             lem.dx, lem.dy = 0, 0
-            self.grille.case(lem.x, lem.y).terrain = Type_t.TERRE_1
