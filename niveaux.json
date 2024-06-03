@@ -1,5 +1,12 @@
-{
-    "nom" : "niveau_1",
-    "num_tilmap" : 0,
-    "nb_lemmings_dep" : 999999999999999999
-}
+[
+    {
+        "nom" : "niveau_1",
+        "num_tilmap" : 0,
+        "nb_lemmings_dep" : 999999999999999999
+    },
+    {
+        "nom" : "niveau_2",
+        "num_tilmap" : 1,
+        "nb_lemmings_dep" : 999999999999999999
+    }
+]
