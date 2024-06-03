@@ -2,20 +2,20 @@ from lemming import *
 from grille import Grille
 
 class Niveau:
-    def __init__(self):
-        nb_niveau = int() # correspond u niveau de la tilmap
-        grille = 'Grille()'
-        nb_lem_dep = int()
-        nb_lem_arr = int()
-        coo_dep = tuple()
-        coo_arr = tuple()
-        lem_IGM = set()
+    def __init__(self, grille, n:int):
+        self.nb_niveau = n # correspond au niveau de la tilmap
+        self.grille = grille
+        self.nb_lem_dep = int()
+        self.nb_lem_arr = int()
+        self.coo_dep = tuple()
+        self.coo_arr = tuple()
+        self.lem_IGM = set()
 
     def apparition(self):
         self.lem_IGM.add(Lemming(*self.coo_dep))
 
     def calcul_score(self):
-        pass
+        return (self.nb_lem_arr/self.nb_lem_dep) * 100
 
     def tour_lemmings(self, lem):
         # à compléter
@@ -27,3 +27,6 @@ class Niveau:
             lem.deplacement(self.grille)
         elif lem.etat == Etats.CREUSER_1 or lem.etat == Etats.CREUSER_2:
             lem.creuse(self.grille)
+        elif lem.etat == Etats.STOP:
+            lem.dx, lem.dy = 0, 0
+            self.grille.case(lem.x, lem.y).terrain = Type_t.TERRE_1

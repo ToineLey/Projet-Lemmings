@@ -23,7 +23,7 @@ class Terrain:
 
 class Grille:
     def __init__(self):
-        map = list(list())
+        self.map = list(list())
     
     def case(self, x, y):
         return self.map[y][x]
