@@ -1,9 +1,9 @@
 from niveau import *
 
 class Timer:
-    def __init__(self, t):
-        self.tps = t
-        self.niveau = Niveau()
+    def __init__(self, n):
+        self.niveau = n
+        self.tps = int()
 
     def rebour(self):
         self.tps -= 1
@@ -18,17 +18,15 @@ class Jeu:
         self.fin = False
         self.score = 0
         self.niveaux = None
-        self.timer = None
         self.charge_niveaux(H, L)
+        self.timer = Timer(self.niveaux[0])
 
     def charge_niveaux(self, H, L):
         pass
 
-    def fin_partie(self):
-        pass
-
     def fin_niveau(self):
-        pass
-
-    def debut_niveau(self):
-        pass
+        self.score += self.timer.niveau.calcul_score()
+        try:
+            self.timer = Timer(self.niveaux[self.timer.niveau.num_niveau + 1])
+        except:
+            self.fin = True
