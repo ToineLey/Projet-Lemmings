@@ -1,28 +1,41 @@
 from lemming import *
-from grille import Grille
+from grille import Grille,Type_t
 import pyxel as pyx
 import json
 
-
+Dict_Terrain = {
+    (2,4) : Type_t.AIR,
+    (4,4) : Type_t.TERRE_1,
+    (6,4) : Type_t.TERRE_1,
+    (0,6) : Type_t.TERRE_2,
+    (2,6) : Type_t.TERRE_3,
+    (4,6) : Type_t.TERRE_4,
+    (6,6) : Type_t.TERRE_5,
+    (0,4) : Type_t.VIDE,
+    (0,8) : Type_t.DEPART,
+    (2,8) : Type_t.ARRIVEE
+}
 
 
 class Niveau:
-    def __init__(self,num_niv):
-        self.num_niveau = num_niv # correspond u niveau de la tilmap
-        grille = 'Grille()'
-        taille_gr = ()
-        nb_lem_dep = int()
-        nb_lem_arr = int()
-        coo_dep = tuple()
-        coo_arr = tuple()
-        lem_IGM = set()
+    def __init__(self, n:int,H,L):
+        self.num = n - 1 # correspond au niveau de la tilmap
+        self.nom = ""
+        self.grille = Grille(H,L)
+        self.nb_lem_dep = int()
+        self.nb_lem_arr = int()
+        self.coo_dep = tuple()
+        self.coo_arr = tuple()
+        self.lem_IGM = set()
+        self.charger_nv(H,L)
+
 
 
     def apparition(self):
         self.lem_IGM.add(Lemming(*self.coo_dep))
 
     def calcul_score(self):
-        pass
+        return (self.nb_lem_arr/self.nb_lem_dep) * 100
 
     def tour_lemmings(self, lem):
         # à compléter
@@ -35,16 +48,18 @@ class Niveau:
         elif lem.etat == Etats.CREUSER_1 or lem.etat == Etats.CREUSER_2:
             lem.creuse(self.grille)
 
-    """def charger_nv(self):
-        for i in range(self.len_x):
-            for j in range(self.len_y):
-                    tab[i][j] = Dict_Test[pyx.tilemap(0).pget(i*2,j*2)]"""
+    def charger_nv(self,H,L):
+        for i in range(L):
+            for j in range(H):
+                    self.grille.map[i][j] = Dict_Terrain[pyx.tilemap(self.num).pget(i*2,j*2)]
     
     def charger_json(self):
-
-        if self.num_niv < 1:
+        if self.num < 0:
             return ValueError
         else:
             with open('niveaux.json') as file:
                 tab_json = json.load(file)
+            self.nom = tab_json[self.num]['nom']
+            self.nb_lem_dep = tab_json[self.num]['nb_lemmings_dep']
+
 

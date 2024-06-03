@@ -22,8 +22,9 @@ class Terrain:
 
 
 class Grille:
-    def __init__(self):
-        map = list(list())
+    def __init__(self,H,L):
+        self.map = [[None]*(L//16) for _ in range(H//16)]
+        
     
     def case(self, x, y):
         return self.map[y][x]
@@ -37,7 +38,7 @@ class Grille:
 # à modifier par Argan
     def charger_grille(self):
         """ parcourir une tilemap et recupérer les tuples en les metants dans un tableau de tableau de meme taille.
-         Taille fixé à , 4.3 pour les testes."""
+         Taille fixé à , 4.3 pour les testes ( voir le fichier Testtilmap.py)."""
         for i in range(self.len_x):
             for j in range(self.len_y):
                 pass
