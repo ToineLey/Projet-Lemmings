@@ -14,11 +14,12 @@ class Type_t:
 
 class Terrain:
     def __init__(self, x, y, type):
-        position = (x, y)
-        terrain = type
+        self.position = (x, y)
+        self.terrain = type
+        self.lem = None
 
     def est_libre(self):
-        return not 1 <= self.terrain < 6
+        return not 1 <= self.terrain < 6 and self.lem == None
 
 
 class Grille:

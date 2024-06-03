@@ -37,13 +37,16 @@ class Lemming:
         else:
             self.etat = Etats.MARCHER_1
 
-    def chute(self, pas):
+    def chute(self, pas, grille):
+        grille.case(self.case_x, self.case_y).lem = None
         self.dy = self.dy + pas 
         if self.dy > 8:
             self.dy = -8
             self.case_y += 1
+        grille.case(self.case_x, self.case_y).lem = self
 
-    def marche(self, pas):
+    def marche(self, pas, grille):
+        grille.case(self.case_x, self.case_y).lem = None
         self.dx = self.dy + pas
         if self.dx < -8:
             self.case_x -= 1
@@ -51,6 +54,7 @@ class Lemming:
         elif self.dx > 8:
             self.case_x += 1
             self.dx = -8
+        grille.case(self.case_x, self.case_y).lem = self
 
     def deplacement(self, grille):
         if (self.dx == -1 or self.dx == 1) and grille.case(self.case_x, self.case_y+1).est_libre():
@@ -58,28 +62,28 @@ class Lemming:
 
         if self.etat == Etats.CHUTE:
             if self.dy != -1:
-                self.chute(1)
+                self.chute(1, grille)
             else:
                 if grille.case(self.case_x, self.case_y+1).est_libre():
-                    self.chute(2)
+                    self.chute(2, grille)
                 else:
                     self.changer_etat_marche()
 
         elif self.direction == Direction.DROITE:
             if self.dx != -1:
-                self.marche(1)
+                self.marche(1, grille)
             else:
                 if grille.case(self.case_x+1, self.case_y).est_libre():
-                    self.marche(2)
+                    self.marche(2, grille)
                 else:
                     self.changer_dir()
 
         elif self.direction == Direction.GAUCHE:
             if self.dx != 1:
-                self.marche(-1)
+                self.marche(-1, grille)
             else:
                 if grille.case(self.case_x-1, self.case_y).est_libre():
-                    self.marche(-2)
+                    self.marche(-2, grille)
                 else:
                     self.changer_dir()
 
