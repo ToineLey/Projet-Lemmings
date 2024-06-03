@@ -1,3 +1,5 @@
+
+
 class Type_t:
     AIR = 0
     TERRE_1 = 1
@@ -12,16 +14,17 @@ class Type_t:
 
 class Terrain:
     def __init__(self, x, y, type):
-        position = (x, y)
-        terrain = type
+        self.position = (x, y)
+        self.terrain = type
+        self.lem = None
 
     def est_libre(self):
-        return not 1 <= self.terrain < 6
+        return not 1 <= self.terrain < 6 and self.lem == None
 
 
 class Grille:
     def __init__(self):
-        map = list(list())
+        self.map = list(list())
     
     def case(self, x, y):
         return self.map[y][x]
@@ -34,4 +37,10 @@ class Grille:
 
 # à modifier par Argan
     def charger_grille(self):
-        pass
+        """ parcourir une tilemap et recupérer les tuples en les metants dans un tableau de tableau de meme taille.
+         Taille fixé à , 4.3 pour les testes."""
+        for i in range(self.len_x):
+            for j in range(self.len_y):
+                pass
+                    #tab[i][j] = Dict_Test[pyx.tilemap(0).pget(i*2,j*2)]
+    
