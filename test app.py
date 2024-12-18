@@ -11,10 +11,12 @@ class App:
         self.bouton_1=True
         self.bouton_2=True
         self.bouton_3=True
+        self.bouton_4=True
         self.fc1=0
         self.fc2=0
         self.fc3=0
-        self.b1,self.b2,self.b3=0,16,32
+        self.fc4=0
+        self.b1,self.b2,self.b3,self.b4=0,16,32,48
         pyx.load("lemmings.pyxres")
         # Lancement du jeu
         pyx.run(self.update, self.draw)
@@ -43,6 +45,10 @@ class App:
                 if self.bouton_3:
                     self.bouton_3=False
                     self.fc3=pyx.frame_count
+            elif pyx.mouse_x>=self.b4 and pyx.mouse_x<self.b4+16 and pyx.mouse_y>=self.y_interface and pyx.mouse_y<self.H:
+                if self.bouton_4:
+                    self.bouton_4=False
+                    self.fc4=pyx.frame_count
         
     def wait(self):
         if pyx.frame_count==self.fc1+5:
@@ -51,6 +57,8 @@ class App:
             self.bouton_2=True
         if pyx.frame_count==self.fc3+5:
             self.bouton_3=True
+        if pyx.frame_count==self.fc4+5:
+            self.bouton_4=True
     
     def bouton(self):
         if self.bouton_1:
@@ -59,6 +67,8 @@ class App:
             pyx.blt(self.b2,self.y_interface,0,16,80,16,16)
         if self.bouton_3:
             pyx.blt(self.b3,self.y_interface,0,32,80,16,16)
+        if self.bouton_4:
+            pyx.blt(self.b4,self.y_interface,0,48,80,16,16)
 
 App(16,32)
 
